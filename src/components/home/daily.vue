@@ -6,6 +6,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Product from "@/components/card/Product.vue";
 import { ChevronLeft, ChevronRight } from "lucide-vue-next";
 import { useI18n } from "vue-i18n";
+import dailyBg from "@/assets/img/daily-bg.webp";
 
 const { t } = useI18n();
 const productdata = ref([]);
@@ -34,7 +35,7 @@ onMounted(() => {
 <template>
   <div
     class="relative w-full min-h-full py-25 flex items-center justify-center bg-cover bg-center mt-20 max-sm:py-15 max-sm:bg-left"
-    style="background-image: url('../../assets/img/daily-bg.webp')"
+    :style="`background-image: url('${dailyBg}')`"
   >
     <div class="container mx-auto px-4 flex justify-end max-sm:justify-start">
       <div class="max-w-140 relative max-sm:max-w-full">
@@ -61,7 +62,6 @@ onMounted(() => {
             <swiper-slide v-for="item in products" :key="item.id">
               <Product :product="item" :color="'white'" />
             </swiper-slide>
-            
 
             <!-- Custom Navigation Buttons -->
             <template #container-end>
