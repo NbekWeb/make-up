@@ -33,7 +33,7 @@ function goToBlog() {
         @click="goToBlog"
         class="flex items-center gap-1 text-gray-700 hover:text-yellow-500 font-medium group"
       >
-        <span class="text-base">{{ $t("blog.all") }}</span>
+        <span class="text-base max-sm:hidden">{{ $t("blog.all") }}</span>
         <ChevronRight
           class="w-5 h-5 group-hover:translate-x-1 transition-transform"
         />
