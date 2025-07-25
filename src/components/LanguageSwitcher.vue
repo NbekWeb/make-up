@@ -20,11 +20,11 @@
             <span class="flag-icon">🇺🇿</span>
             <span>{{ $t("common.uzbek") }}</span>
           </a-menu-item>
-          <a-menu-item key="kk">
+          <a-menu-item key="ko">
             <span class="flag-icon">🇰🇿</span>
             <span>Kazakh</span>
           </a-menu-item>
-          <a-menu-item key="ko">
+          <a-menu-item key="kk">
             <span class="flag-icon">🇰🇷</span>
             <span>Korean</span>
           </a-menu-item>
@@ -55,8 +55,8 @@ const getCurrentFlag = computed(() => {
     en: "🇺🇸",
     ru: "🇷🇺",
     uz: "🇺🇿",
-    kk: "🇰🇷",
     ko: "🇰🇿",
+    kk: "🇰🇷",
   };
   return flags[locale.value] || flags.en;
 });
