@@ -1,64 +1,7 @@
 @import "tailwindcss";
 
-/* TildaSans Font Family */
-@font-face {
-  font-family: "TildaSans";
-  src: url("../fonts/TildaSans-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "TildaSans";
-  src: url("../fonts/TildaSans-Light.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "TildaSans";
-  src: url("../fonts/TildaSans-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "TildaSans";
-  src: url("../fonts/TildaSans-Semibold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "TildaSans";
-  src: url("../fonts/TildaSans-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "TildaSans";
-  src: url("../fonts/TildaSans-ExtraBold.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "TildaSans";
-  src: url("../fonts/TildaSans-Black.woff2") format("woff2");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 * {
-  font-family: "TildaSans", sans-serif;
+  font-family: "Libre Franklin", sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -66,15 +9,21 @@
   --color-blue-500: #0066ff;
   --color-blue-600: #0f5ae0;
   --color-blue-700: #124fc2;
+  --color-gray-100: #f4f4f4;
+  --color-gray-200: #f5f5f5;
+  --color-gray-300: #eff1f5;
+  --color-gray-400: #fafafa;
+  --color-gray-500: #fafcff;
+  --color-gray-600: #646464;
+  --color-gray-700: "#ededed";
+  --color-dark-300: "#323232";
+  --color-yellow-500: #c7b270;
+  --color-white: #fff;
+  --color-orange-500: #ff8562;
   --radius-lg: 10px;
   --radius-2xl: 20px;
   --text-4xl: 45px;
   --text-5xl: 50px;
-  --color-white: #fff;
-  --color-gray-500: #fafcff;
-  --color-gray-600: #646464;
-  --color-gray-300: #eff1f5;
-  --color-orange-500: #ff8562;
 }
 
 a {
@@ -93,4 +42,8 @@ button {
 .ant-input,
 .ant-input-affix-wrapper {
   padding: 8px;
+}
+
+.font-libre-franklin {
+  font-family: "Libre Franklin", sans-serif;
 }

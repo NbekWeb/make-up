@@ -1,223 +1,323 @@
 <template>
-  <nav class="w-full bg-black border-b border-white/20">
-    <div class="container mx-auto px-5">
-      <div class="flex items-center justify-between h-16 text-white">
-        <!-- Logo -->
+  <nav class="shadow-md">
+    <div class="container mx-auto px-4 relative">
+      <div class="flex justify-between items-center py-4">
+        <!-- Left side - Logo -->
         <div class="flex items-center">
-          <img src="../../assets/img/logo.png" alt="Logo" class="h-8 w-auto" />
+          <router-link to="/">
+            <img
+              src="@/assets/img/logo.png"
+              alt="logo"
+              class="w-auto object-contain h-8 md:h-12.5"
+            />
+          </router-link>
         </div>
 
-        <!-- Navigation Links - Hidden on mobile -->
-        <div class="hidden lg:flex items-center gap-8 text-white">
-          <a
-            href="#about"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group"
+        <!-- Center - Navigation Links (Desktop) -->
+        <div class="hidden md:flex items-center space-x-8">
+          <router-link
+            to="/"
+            class="nav-link text-gray-700 hover:text-gray-900 font-medium transition-colors flex items-center space-x-1 relative"
+            active-class="text-blue-600"
           >
-            About Us
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
-          <a
-            href="#get-started"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group"
+            <span>{{ $t("navigation.home") }}</span>
+          </router-link>
+
+          <router-link
+            to="/catalog"
+            class="nav-link text-gray-700 hover:text-gray-900 font-medium transition-colors flex items-center space-x-1 relative"
+            active-class="text-blue-600"
           >
-            Get Started
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
-          <a
-            href="#statistics"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group"
+            <span>{{ $t("navigation.catalog") }}</span>
+          </router-link>
+
+          <router-link
+            to="/blog"
+            class="nav-link text-gray-700 hover:text-gray-900 font-medium transition-colors flex items-center space-x-1 relative"
+            active-class="text-blue-600"
           >
-            Our Statistics
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
-          <a
-            href="#equipment"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group"
-          >
-            Miner Equipment
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
-          <a
-            href="#contact"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group"
-          >
-            Contact Us
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
+            <span>{{ $t("navigation.blog") }}</span>
+          </router-link>
         </div>
 
-        <button
-          @click="handleJoinUs"
-          class="hidden lg:block bg-blue-500 hover:bg-white hover:!text-blue-500 px-6 py-2 rounded-2xl hover:border-blue-500 border border-transparent uppercase font-medium !text-white"
-        >
-          Join Us
-        </button>
+        <div class="flex items-center space-x-3 md:space-x-4 max-sm:gap-2">
+          <div class="" @click.stop="openSearch">
+            <Search
+              class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-800 transition-colors"
+            />
+          </div>
 
-        <div class="lg:hidden">
-          <HamburgerMenu v-model="isMobileMenuOpen" />
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile Menu Overlay -->
-    <div
-      v-if="isMobileMenuOpen"
-      @click="closeMobileMenu"
-      class="fixed inset-0 bg-black/30 z-20 lg:hidden"
-    ></div>
-
-    <!-- Mobile Menu -->
-    <div
-      class="fixed top-0 right-0 h-[100dvh] bg-black border-l border-white/20 z-20 lg:hidden transition-transform duration-300 ease-in-out"
-      :class="[
-        isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full',
-        'max-w-100 w-100 max-sm:min-w-full',
-      ]"
-    >
-      <div class="flex flex-col h-full p-6">
-        <!-- Close Button -->
-        <div class="flex justify-end mb-8">
-          <button
-            @click="closeMobileMenu"
-            class="text-white hover:text-gray-300 transition-colors duration-200"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <!-- Shopping Cart Icon -->
+          <div class="relative">
+            <ShoppingCart
+              class="w-5 h-5 text-gray-600 cursor-pointer hover:text-gray-800 transition-colors"
+              @click="cart.openDrawer()"
+            />
+            <span
+              class="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </button>
-        </div>
+              {{ cartCount }}
+            </span>
+          </div>
 
-        <!-- Mobile Navigation Links -->
-        <div
-          class="flex flex-col space-y-6 text-white max-sm:items-center max-sm:pt-8"
-        >
-          <a
-            href="#about"
-            @click="closeMobileMenu"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group text-lg"
-          >
-            About Us
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
-          <a
-            href="#get-started"
-            @click="closeMobileMenu"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group text-lg"
-          >
-            Get Started
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
-          <a
-            href="#statistics"
-            @click="closeMobileMenu"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group text-lg"
-          >
-            Our Statistics
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
-          <a
-            href="#equipment"
-            @click="closeMobileMenu"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group text-lg"
-          >
-            Miner Equipment
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
-          <a
-            href="#contact"
-            @click="closeMobileMenu"
-            class="uppercase font-medium hover:opacity-100 opacity-90 transition-all duration-300 relative group text-lg"
-          >
-            Contact Us
-            <span
-              class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
-            ></span>
-          </a>
-        </div>
+          <!-- User/Login Icon -->
+          <div class="relative">
+            <template v-if="!accessToken">
+              <User
+                class="w-5 h-5 hover:text-yellow-500 transition-colors duration-300 cursor-pointer"
+                @click="goToLogin"
+              />
+            </template>
+            <template v-else>
+              <div class="relative">
+                <Avatar
+                  :size="32"
+                  style="background-color: #fde3cf; color: #f56a00"
+                  class="cursor-pointer hover:opacity-80 transition-opacity"
+                  @click="toggleUserDropdown"
+                >
+                  {{ userInitial }}
+                </Avatar>
 
-        <div class="mt-auto mb-5">
-          <button
-            @click="handleJoinUs"
-            class="w-full bg-blue-500 hover:bg-white hover:!text-blue-500 px-6 py-3 rounded-2xl hover:border-blue-500 border border-transparent uppercase font-medium !text-white transition-all duration-300"
-          >
-            Join Us
-          </button>
+                <!-- User Dropdown Menu -->
+                <div
+                  v-show="isUserDropdownOpen"
+                  class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200"
+                  ref="userDropdownRef"
+                >
+                  <router-link
+                    to="/profile"
+                    @click="closeUserDropdown"
+                    class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center space-x-2"
+                  >
+                    <User class="w-4 h-4" />
+                    <span>{{ t('navigation.profile') }}</span>
+                  </router-link>
+
+                  <router-link
+                    to="/orders"
+                    @click="closeUserDropdown"
+                    class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center space-x-2"
+                  >
+                    <ShoppingCart class="w-4 h-4" />
+                    <span>{{ t('navigation.orders') }}</span>
+                  </router-link>
+
+                  <div class="border-t border-gray-100">
+                    <button
+                      @click="logout"
+                      class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center space-x-2"
+                    >
+                      <LogOut class="w-4 h-4 text-red-600" />
+                      <span>{{ t('common.logout') }}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <span class="md:hidden">
+            <Hamburger
+              v-model="isMobileMenuOpen"
+              color="#6B7280"
+              class="md:hidden"
+            />
+          </span>
         </div>
       </div>
+
+      <!-- Mobile Navigation Menu -->
+      <div
+        v-show="isMobileMenuOpen"
+        class="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50"
+        ref="mobileMenuRef"
+      >
+        <div class="container mx-auto px-4 py-4">
+          <div class="flex flex-col space-y-4">
+            <router-link
+              to="/"
+              @click="closeMobileMenu"
+              class="nav-link-mobile text-gray-700 hover:text-gray-900 font-medium transition-colors py-2 px-4 rounded-md hover:bg-gray-50"
+            >
+              <span>{{ $t("navigation.home") }}</span>
+            </router-link>
+
+            <router-link
+              to="/catalog"
+              @click="closeMobileMenu"
+              class="nav-link-mobile text-gray-700 hover:text-gray-900 font-medium transition-colors py-2 px-4 rounded-md hover:bg-gray-50"
+            >
+              <span>{{ $t("navigation.catalog") }}</span>
+            </router-link>
+
+            <router-link
+              to="/blog"
+              @click="closeMobileMenu"
+              class="nav-link-mobile text-gray-700 hover:text-gray-900 font-medium transition-colors py-2 px-4 rounded-md hover:bg-gray-50"
+            >
+              <span>{{ $t("navigation.blog") }}</span>
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <SearchOverlay v-model="isSearchOpen" />
     </div>
   </nav>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from "vue";
-import HamburgerMenu from "../HamburgerMenu.vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
+import { Search, ShoppingCart, ChevronDown, LogOut } from "lucide-vue-next";
+import Hamburger from "@/components/Hamburger.vue";
+import SearchOverlay from "@/components/SearchOverlay.vue";
+import { useCart } from "@/stores/cart.pinia";
+import { storeToRefs } from "pinia";
+import { Avatar } from "ant-design-vue";
+import { User } from "lucide-vue-next";
 import { useRouter } from "vue-router";
+import useAuth from "@/stores/auth.pinia";
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
+
+const authStore = useAuth();
+const { userData } = storeToRefs(authStore);
+
+const cart = useCart();
+const { cartCount } = storeToRefs(cart);
+
+const accessToken = localStorage.getItem("access_token");
+
+const userName = computed(() => {
+  return userData.value?.first_name || userData.value?.username || "User";
+});
+
+const userInitial = computed(() => {
+  return userName.value ? userName.value[0].toUpperCase() : "U";
+});
 const router = useRouter();
 
+function goToLogin() {
+  router.push("/login");
+}
+
 const isMobileMenuOpen = ref(false);
+const isSearchOpen = ref(false);
+const isUserDropdownOpen = ref(false);
+const mobileMenuRef = ref(null);
+const userDropdownRef = ref(null);
+
+const openSearch = () => {
+  isSearchOpen.value = true;
+};
 
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false;
-  document.body.style.overflow = "auto";
 };
 
-function handleJoinUs() {
-  const token = localStorage.getItem("access_token");
-  if (token) {
-    router.push("/account");
-  } else {
-    router.push("/login");
+const toggleUserDropdown = () => {
+  isUserDropdownOpen.value = !isUserDropdownOpen.value;
+};
+
+const closeUserDropdown = () => {
+  isUserDropdownOpen.value = false;
+};
+
+const logout = () => {
+  localStorage.removeItem("access_token");
+  authStore.userData = {};
+  closeUserDropdown();
+  router.push("/login");
+};
+
+// Click outside to close menus
+const handleClickOutside = (event) => {
+  // Close mobile menu
+  if (
+    isMobileMenuOpen.value &&
+    mobileMenuRef.value &&
+    !mobileMenuRef.value.contains(event.target)
+  ) {
+    const hamburgerButton = event.target.closest(".hamburger");
+    if (!hamburgerButton || !hamburgerButton.contains(event.target)) {
+      closeMobileMenu();
+    }
   }
-  closeMobileMenu();
-}
 
-// Watch menu state to toggle body scroll
-watch(isMobileMenuOpen, (newValue) => {
-  document.body.style.overflow = newValue ? "hidden" : "auto";
-});
+  // Close user dropdown
+  if (
+    isUserDropdownOpen.value &&
+    userDropdownRef.value &&
+    !userDropdownRef.value.contains(event.target)
+  ) {
+    const avatarButton = event.target.closest(".ant-avatar");
+    if (!avatarButton || !avatarButton.contains(event.target)) {
+      closeUserDropdown();
+    }
+  }
+};
 
-// Handle resize logic
-const handleResize = () => {
-  if (window.innerWidth >= 1024 && isMobileMenuOpen.value) {
-    closeMobileMenu();
+// Escape key to close menus
+const handleEscapeKey = (event) => {
+  if (event.key === "Escape") {
+    if (isMobileMenuOpen.value) {
+      closeMobileMenu();
+    }
+    if (isUserDropdownOpen.value) {
+      closeUserDropdown();
+    }
   }
 };
 
 onMounted(() => {
-  window.addEventListener("resize", handleResize);
+  document.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleEscapeKey);
+  
+  // Fetch user data if user is logged in
+  if (accessToken && !userData.value?.id) {
+    authStore.getUser();
+  }
 });
 
-onBeforeUnmount(() => {
-  window.removeEventListener("resize", handleResize);
-  document.body.style.overflow = "auto";
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
+  document.removeEventListener("keydown", handleEscapeKey);
 });
 </script>
+
+<style scoped>
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #101828; /* blue-600 */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Active state also shows the border */
+.nav-link.router-link-active::after {
+  width: 100%;
+}
+
+/* Mobile navigation styles */
+.nav-link-mobile {
+  position: relative;
+}
+
+.nav-link-mobile.router-link-active {
+  font-weight: 600;
+}
+</style>

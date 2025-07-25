@@ -5,12 +5,12 @@ import useCore from "./core.pinia";
 
 const useAuth = defineStore("auth", {
   state: () => ({
-    user: {},
+    userData: {},
   }),
   actions: {
-    postLogin(data, callback=()=>{}) {
+    postLogin(data, callback = () => {}) {
       api({
-        url: "auth/login/",
+        url: "account/signin/",
         method: "POST",
         data,
       })
@@ -19,18 +19,21 @@ const useAuth = defineStore("auth", {
           callback();
         })
         .catch((error) => {
-          message.error("Something went wrong!");
+          if (error?.response?.data?.detail) {
+            message.error(error?.response?.data?.detail);
+          } else {
+            message.error("Something went wrong!");
+          }
         })
         .finally(() => {});
     },
-    postRegis(data, callback=()=>{}) {
+    postRegis(data, callback = () => {}) {
       api({
-        url: "auth/register/",
+        url: "account/signup/",
         method: "POST",
         data,
       })
-        .then(({ data }) => {
-          localStorage.setItem("access_token", data.tokens.access);
+        .then(({}) => {
           callback();
         })
         .catch((error) => {
@@ -42,31 +45,51 @@ const useAuth = defineStore("auth", {
         })
         .finally(() => {});
     },
-    changePassword(data, callback=()=>{}) {
+    getUser() {
+      const core = useCore();
+      core.loadingUrl.add("user");
       api({
-        url: "auth/change-password/",
-        method: "POST",
-        data,
+        url: "account/user-detail/",
+        method: "GET",
       })
         .then(({ data }) => {
+          this.userData = data;
+        })
+        .catch((error) => {
+          message.error("Something went wrong!");
+        })
+        .finally(() => {
+          core.loadingUrl.delete("user");
+        });
+    },
+    changePassword(data, callback = () => {}) {
+      const core = useCore();
+      core.loadingUrl.add("user");
+      api({
+        url: "account/update-password/",
+        method: "PATCH",
+        data,
+      })
+        .then(({}) => {
           callback();
         })
         .catch((error) => {
           message.error("Something went wrong!");
         })
-        .finally(() => {});
+        .finally(() => {
+          core.loadingUrl.delete("user");
+        });
     },
-
-    getUser(callback=()=>{}) {
+    updateProfile(data, callback = () => {}) {
       const core = useCore();
       core.loadingUrl.add("user");
       api({
-        url: "auth/profile/",
-        method: "GET",
+        url: "account/user-detail/",
+        method: "PUT",
+        data,
       })
-        .then(({ data }) => {
-          this.user = data;
-          callback(data.id);
+        .then(({}) => {
+          callback();
         })
         .catch((error) => {
           message.error("Something went wrong!");

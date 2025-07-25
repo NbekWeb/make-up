@@ -28,11 +28,13 @@ function createAxiosResponseInterceptor() {
   const interceptor = instance.interceptors.response.use(
     (response) => response,
     (error) => {
+      console.log(error.response.status);
       if (error.response.status == 401) {
         const access_token = localStorage.getItem("access_token");
         if (access_token) {
           Clear();
         }
+        
       }
       axios.interceptors.response.eject(interceptor);
       return Promise.reject(error);
