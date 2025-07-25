@@ -1,13 +1,13 @@
 <script setup>
-import { ref,onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import useProduct from "@/stores/product.pinia";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Product from "@/components/card/Product.vue";
 import { ChevronLeft, ChevronRight } from "lucide-vue-next";
-import { useI18n } from 'vue-i18n'
+import { useI18n } from "vue-i18n";
 
-const { t } = useI18n()
+const { t } = useI18n();
 const productdata = ref([]);
 const productStore = useProduct();
 
@@ -39,7 +39,7 @@ onMounted(() => {
     <div class="container mx-auto px-4 flex justify-end max-sm:justify-start">
       <div class="max-w-140 relative max-sm:max-w-full">
         <h2 class="text-3xl font-bold text-white mb-6 drop-shadow-lg">
-          {{ t('home.daily_deals') }}
+          {{ t("home.daily_deals") }}
         </h2>
         <div class="relative">
           <swiper
@@ -61,6 +61,8 @@ onMounted(() => {
             <swiper-slide v-for="item in products" :key="item.id">
               <Product :product="item" :color="'white'" />
             </swiper-slide>
+            
+
             <!-- Custom Navigation Buttons -->
             <template #container-end>
               <div

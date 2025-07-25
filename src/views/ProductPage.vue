@@ -224,8 +224,11 @@ onMounted(() => {
             <h3 class="text-xl font-semibold text-gray-900">
               {{ t("product.comments") }}
             </h3>
-            <span class="text-sm text-gray-900/60">
-              {{ product.comment_count > 0 && `( ${product.comment_count} )` }}
+            <span
+              class="text-sm text-gray-900/60"
+              v-if="product.comment_count > 0"
+            >
+              {{ `( ${product.comment_count} )` }}
             </span>
           </div>
           <a-button type="primary" @click="handleLeaveComment">

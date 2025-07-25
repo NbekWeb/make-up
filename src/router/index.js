@@ -82,6 +82,9 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0, behavior: 'smooth' };
+  },
 });
 
 // Global navigation guard to update document title
