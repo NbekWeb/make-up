@@ -21,7 +21,7 @@ const SwiperNavigation = Navigation;
 const products = ref([]);
 
 onMounted(() => {
-  productStore.getProducts(
+  productStore.getCategoryProduc(
     {
       is_new: true,
     },

@@ -16,7 +16,7 @@ function goToPopularCatalog() {
 }
 
 onMounted(() => {
-  product.getProducts(
+  product.getCategoryProduc(
     {
       is_popular: true,
     },
