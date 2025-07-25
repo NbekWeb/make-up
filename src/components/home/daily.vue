@@ -57,16 +57,17 @@ onMounted(() => {
               0: { slidesPerView: 1 },
               640: { slidesPerView: 2 },
             }"
-            class="product-swiper group"
+            class="product-swiper "
           >
             <swiper-slide v-for="item in products" :key="item.id">
               <Product :product="item" :color="'white'" />
             </swiper-slide>
+         
 
             <!-- Custom Navigation Buttons -->
             <template #container-end>
               <div
-                class="absolute top-35 max-sm:top-50 hidden max-sm:flex group-hover:flex left-0 w-full transition-all duration-300 justify-between gap-4 -translate-y-1/2 z-10"
+                class="absolute btns top-35 max-sm:top-50 hidden max-sm:flex  left-0 w-full transition-all duration-300 justify-between gap-4 -translate-y-1/2 z-10"
               >
                 <button
                   class="daily-swiper-prev bg-gray-500 hover:bg-yellow-500 text-gray-700 hover:text-white w-10 h-10 flex items-center justify-center shadow transition-all duration-300"
@@ -91,5 +92,8 @@ onMounted(() => {
 .product-swiper {
   width: 100%;
   padding-bottom: 40px;
+}
+.product-swiper:hover .btns {
+  display: flex;
 }
 </style>
