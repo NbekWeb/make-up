@@ -34,7 +34,7 @@ onMounted(() => {
 <template>
   <div
     class="relative w-full min-h-full py-25 flex items-center justify-center bg-cover bg-center mt-20 max-sm:py-15 max-sm:bg-left"
-    style="background-image: url('@/assets/img/daily-bg.webp')"
+    style="background-image: url('../../assets/img/daily-bg.webp')"
   >
     <div class="container mx-auto px-4 flex justify-end max-sm:justify-start">
       <div class="max-w-140 relative max-sm:max-w-full">
