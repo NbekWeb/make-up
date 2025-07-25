@@ -9,6 +9,8 @@ const useMain = defineStore("main", {
     partners: [],
     categories: [],
     colors: [],
+    blogs: [],
+    blog: null,
   }),
   actions: {
     getBanners() {
@@ -84,6 +86,36 @@ const useMain = defineStore("main", {
         .catch((error) => {})
         .finally(() => {
           core.loadingUrl.delete("market/products/colors/");
+        });
+    },
+    getBlogs() {
+      const core = useCore();
+      core.loadingUrl.add("site/blogs/");
+      api({
+        url: "site/blogs/",
+        method: "GET",
+      })
+        .then(({ data }) => {
+          this.blogs = data?.results;
+        })
+        .catch((error) => {})
+        .finally(() => {
+          core.loadingUrl.delete("site/blogs/");
+        });
+    },
+    getBlog(id) {
+      const core = useCore();
+      core.loadingUrl.add(`site/blogs//`);
+      api({
+        url: `site/blogs/${id}/`,
+        method: "GET",
+      })
+        .then(({ data }) => {
+          this.blog = data;
+        })
+        .catch((error) => {})
+        .finally(() => {
+          core.loadingUrl.delete("site/blogs/");
         });
     },
   },

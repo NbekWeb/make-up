@@ -85,7 +85,9 @@
     "load_more": "Load More",
     "latest_blog": "Latest Blog",
     "latest_blog_subtitle": "There are latest blog posts",
-    "all": "All"
+    "all": "All",
+    "back": "Back",
+    "published_at": "Published at"
   },
   "catalog": {
     "filter": "Filter",
@@ -247,5 +249,7 @@
     "status": "Status",
     "success": "Success",
     "error": "Error"
-  }
+  },
+  "latest_blog": "Latest Blog",
+  "latest_blog_subtitle": "Read our latest news, tips, and stories"
 }

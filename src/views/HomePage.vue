@@ -1,5 +1,11 @@
 <template>
-  <a-spin :spinning="loadingUrl.has('site/banners/')">
+  <a-spin
+    :spinning="
+      loadingUrl.has('site/banners/') ||
+      loadingUrl.has('site/blogs/') ||
+      loadingUrl.has('order')
+    "
+  >
     <div class="min-h-screen bg-white">
       <Banner />
       <Adds :data="adds" />
@@ -15,9 +21,9 @@
 import Banner from "@/components/card/Banner.vue";
 import Adds from "@/components/home/adds.vue";
 import Daily from "@/components/home/daily.vue";
-import Popular from '@/components/home/Popular.vue';
-import LatestBlog from '@/components/home/LatestBlog.vue';
-import Partners from '@/components/home/Partners.vue';
+import Popular from "@/components/home/Popular.vue";
+import LatestBlog from "@/components/home/LatestBlog.vue";
+import Partners from "@/components/home/Partners.vue";
 import useMain from "@/stores/main.pinia";
 import useCore from "@/stores/core.pinia";
 import { onMounted } from "vue";
@@ -33,6 +39,7 @@ onMounted(() => {
   mainStore.getBanners();
   mainStore.getAdds();
   mainStore.getPartners();
+  mainStore.getBlogs();
 });
 </script>
 

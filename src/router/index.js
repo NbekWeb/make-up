@@ -75,6 +75,11 @@ const routes = [
           title: "Order - SeedBee",
         },
       },
+      {
+        path: '/blog/:id',
+        name: 'BlogSingle',
+        component: () => import('@/views/BlogSinglePage.vue'),
+      },
     ],
   },
 ];

@@ -84,7 +84,9 @@
     "load_more": "Ko'proq yuklash",
     "latest_blog": "So'nggi blog",
     "latest_blog_subtitle": "So'nggi blog postlar mavjud",
-    "all": "Hammasi"
+    "all": "Hammasi",
+    "back": "Orqaga",
+    "published_at": "E'lon qilingan sana"
   },
   "catalog": {
     "filter": "Filtr",
